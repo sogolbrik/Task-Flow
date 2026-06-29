@@ -31,6 +31,10 @@ COPY ./nginx.conf /etc/nginx/sites-available/default
 RUN rm -f /etc/nginx/sites-enabled/default && \
     ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
+# MEMPERBAIKI AKSES PHP-FPM: Mengubah listen dari file sock bawaan / aturan ketat ke 127.0.0.1:9000
+RUN sed -i 's/listen = \/usr\/local\/var\/run\/php-fpm.sock/listen = 127.0.0.1:9000/g' /usr/local/etc/php-fpm.d/www.conf || true
+RUN sed -i 's/listen = 9000/listen = 127.0.0.1:9000/g' /usr/local/etc/php-fpm.d/zz-docker.conf || true
+
 RUN chmod -R 775 storage bootstrap/cache
 
 EXPOSE 8080
