@@ -1,0 +1,45 @@
+1. Personal Task Manager ⭐ (Paling direkomendasikan)
+
+Fitur:
+
+Login/Register
+CRUD Task
+Status (Todo, Progress, Done)
+Filter dan Search
+Notifikasi
+
+Yang bisa dicoba:
+
+Eloquent terbaru
+Validation
+Queue
+Event & Listener
+Notification
+Cache
+Authorization Policy
+
+Fitur Assignes:
+<div class="glass-effect p-lg rounded-xl border border-outline-variant/50">
+    <label class="text-[12px] font-semibold tracking-wider text-on-surface-variant uppercase block mb-md">Assignees</label>
+    <div class="space-y-md">
+        <div class="flex items-center justify-between group">
+            <div class="flex items-center gap-md">
+                <div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold text-[10px]">AC</div>
+                <span class="text-[14px] text-on-surface">Alex Chen (You)</span>
+            </div>
+            <i class="fa-solid fa-xmark text-error opacity-0 group-hover:opacity-100 cursor-pointer transition-opacity text-[14px]"></i>
+        </div>
+        <div class="flex items-center justify-between group">
+            <div class="flex items-center gap-md">
+                <div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container font-bold text-[10px]">SM</div>
+                <span class="text-[14px] text-on-surface">Sarah Miller</span>
+            </div>
+            <i class="fa-solid fa-xmark text-error opacity-0 group-hover:opacity-100 cursor-pointer transition-opacity text-[14px]"></i>
+        </div>
+        <button
+            class="w-full border border-dashed border-outline-variant py-sm rounded-lg flex items-center justify-center gap-sm text-on-surface-variant hover:text-on-surface transition-colors mt-md text-[12px] font-semibold tracking-wider">
+            <i class="fa-solid fa-user-plus text-[14px]"></i>
+            <span>Add Assignee</span>
+        </button>
+    </div>
+</div>
