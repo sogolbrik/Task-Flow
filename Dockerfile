@@ -28,6 +28,6 @@ RUN npm run build
 COPY ./nginx.conf /etc/nginx/sites-available/default
 RUN chmod -R 775 storage bootstrap/cache
 
-EXPOSE 80
+EXPOSE 8080
 
 CMD ["sh", "-c", "php-fpm -D && nginx -g 'daemon off;'"]
