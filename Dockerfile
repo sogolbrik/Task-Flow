@@ -30,4 +30,4 @@ RUN chmod -R 775 storage bootstrap/cache
 
 EXPOSE 80
 
-CMD ["sh", "-c", "service nginx start && php-fpm"]
+CMD ["sh", "-c", "php-fpm -D && nginx -g 'daemon off;'"]
