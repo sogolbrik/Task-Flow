@@ -125,12 +125,25 @@
     </style>
 </head>
 
-<body class="bg-background text-on-background min-h-screen flex overflow-hidden antialiased">
+<body class="bg-background text-on-background min-h-screen flex overflow-hidden antialiased" x-data="{ mobileSidebarOpen: false }">
 
-    <aside class="hidden md:flex flex-col py-lg px-md bg-surface-container fixed left-0 top-0 h-screen w-sidebar-width border-r border-outline-variant shadow-none z-50">
-        <div class="mb-xl px-sm">
-            <h1 class="font-headline font-bold text-[18px] leading-6 text-primary tracking-tight">Task FLow</h1>
-            <p class="text-on-surface-variant text-[12px] font-semibold tracking-wider uppercase mt-1">Pro Plan</p>
+    <div class="fixed inset-0 bg-black/50 z-40 md:hidden transition-opacity duration-300" x-show="mobileSidebarOpen" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" @click="mobileSidebarOpen = false"
+        x-cloak>
+    </div>
+
+    <aside
+        class="flex flex-col py-lg px-md bg-surface-container fixed left-0 top-0 h-screen w-sidebar-width border-r border-outline-variant shadow-none z-50 transition-transform duration-300 transform md:transform-none"
+        :class="mobileSidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'">
+
+        <div class="mb-xl px-sm flex justify-between items-center">
+            <div>
+                <h1 class="font-headline font-bold text-[18px] leading-6 text-primary tracking-tight">Task FLow</h1>
+                <p class="text-on-surface-variant text-[12px] font-semibold tracking-wider uppercase mt-1">Pro Plan</p>
+            </div>
+            <button @click="mobileSidebarOpen = false" class="md:hidden text-on-surface-variant hover:text-on-surface p-1">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
         </div>
 
         <nav class="flex-1 space-y-1">
@@ -176,36 +189,38 @@
         </div>
     </aside>
 
-    <main class="flex-1 flex flex-col md:ml-65 h-screen overflow-hidden">
-        <header class="flex justify-between items-center w-full px-lg h-16 bg-surface border-b border-outline-variant shadow-sm z-40 sticky top-0">
-            <div class="flex items-center gap-lg">
+    <div class="flex-1 flex flex-col md:pl-65 h-screen overflow-hidden w-full">
+        <header class="flex justify-between items-center w-full px-md sm:px-lg h-16 bg-surface border-b border-outline-variant shadow-sm z-40 sticky top-0">
+            <div class="flex items-center gap-md sm:gap-lg">
                 <div class="md:hidden">
-                    <button class="text-primary cursor-pointer p-xs hover:bg-surface-variant rounded-full transition-colors">
+                    <button @click="mobileSidebarOpen = true" class="text-primary cursor-pointer p-xs hover:bg-surface-variant rounded-full transition-colors">
                         <i class="fa-solid fa-bars text-[18px]"></i>
                     </button>
                 </div>
-                <div class="hidden sm:flex items-center bg-surface-container-highest rounded-full px-md py-xs border border-outline-variant group focus-within:border-primary transition-all">
+                <div class="flex items-center bg-surface-container-highest rounded-full px-md py-xs border border-outline-variant group focus-within:border-primary transition-all">
                     <i class="fa-solid fa-magnifying-glass text-on-surface-variant group-focus-within:text-primary mr-sm text-[14px]"></i>
-                    <input class="bg-transparent border-none focus:ring-0 text-[14px] leading-5 text-on-surface placeholder:text-on-surface-variant w-48 lg:w-64 focus:outline-none"
+                    <input class="bg-transparent border-none focus:ring-0 text-[14px] leading-5 text-on-surface placeholder:text-on-surface-variant w-full max-w-xs sm:w-48 lg:w-64 focus:outline-none"
                         placeholder="Search tasks..." type="text" />
                 </div>
             </div>
-            <div class="flex items-center gap-md">
+            <div class="flex items-center gap-sm sm:gap-md">
                 <button class="text-on-surface-variant hover:bg-surface-variant transition-colors w-9 h-9 flex items-center justify-center rounded-full cursor-pointer active:scale-95">
                     <i class="fa-solid fa-bell"></i>
                 </button>
                 <button class="text-on-surface-variant hover:bg-surface-variant transition-colors w-9 h-9 flex items-center justify-center rounded-full cursor-pointer active:scale-95">
                     <i class="fa-solid fa-comment-dots"></i>
                 </button>
-                <div class="h-8 w-px bg-outline-variant mx-sm"></div>
+                <div class="h-8 w-px bg-outline-variant mx-xs sm:mx-sm"></div>
                 <div
                     class="w-8 h-8 rounded-full border border-primary-container bg-primary-container flex items-center justify-center text-on-primary-container font-bold text-[10px] cursor-pointer hover:ring-2 ring-primary transition-all">
                     {{ strtoupper(substr(auth()->user()->name, 0, 2)) }}</div>
             </div>
         </header>
 
-        {{ $slot }}
-    </main>
+        <main class="flex-1 overflow-y-auto p-md sm:p-lg">
+            {{ $slot }}
+        </main>
+    </div>
 
     <script src="{{ asset('assets/vendor/fontawesome/all.min.js') }}"></script>
     <script>

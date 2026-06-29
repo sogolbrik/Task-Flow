@@ -1,22 +1,22 @@
 <x-main title="Task Flow | Dashboard">
 
-    <section class="flex-1 overflow-y-auto p-lg space-y-lg flex flex-col">
+    <section class="flex-1 overflow-y-auto p-md sm:p-lg space-y-md sm:space-y-lg flex flex-col">
 
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-md shrink-0">
             <div>
-                <h2 class="font-headline font-bold text-[34px] leading-10 tracking-tight text-on-surface">Welcome back, John</h2>
-                <p class="text-on-surface-variant text-[15px] leading-6 mt-1">You have 12 tasks remaining for this week.</p>
+                <h2 class="font-headline font-bold text-[26px] sm:text-[34px] leading-8 sm:leading-10 tracking-tight text-on-surface">Welcome back, John</h2>
+                <p class="text-on-surface-variant text-[14px] sm:text-[15px] leading-5 sm:leading-6 mt-1">You have 12 tasks remaining for this week.</p>
             </div>
             <button
-                class="bg-primary-container text-on-primary-container px-lg py-md rounded-lg text-[12px] font-semibold tracking-wider flex items-center gap-sm hover:brightness-110 active:scale-95 transition-all shadow-lg shadow-primary-container/20">
+                class="bg-primary-container text-on-primary-container px-lg py-md rounded-lg text-[12px] font-semibold tracking-wider flex items-center justify-center gap-sm hover:brightness-110 active:scale-95 transition-all shadow-lg shadow-primary-container/20 w-full sm:w-auto">
                 <i class="fa-solid fa-plus font-bold"></i>
                 New Task
             </button>
         </div>
 
-        <div class="flex gap-lg overflow-x-auto pb-md flex-1 items-start">
+        <div class="flex gap-md sm:gap-lg overflow-x-auto pb-md flex-1 items-start snap-x snap-mandatory px-1">
 
-            <div class="kanban-column w-72 md:w-80 shrink-0 flex flex-col max-h-full bg-surface-container-low/50 p-sm rounded-xl border border-outline-variant/50">
+            <div class="kanban-column w-70 sm:w-72 md:w-80 shrink-0 flex flex-col max-h-full bg-surface-container-low/50 p-sm rounded-xl border border-outline-variant/50 snap-contained">
                 <div class="flex items-center justify-between px-xs py-sm shrink-0">
                     <div class="flex items-center gap-sm">
                         <span class="w-2 h-2 rounded-full bg-primary"></span>
@@ -30,7 +30,7 @@
                     <div
                         class="bg-surface-container border border-outline-variant p-md rounded-xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-grab active:cursor-grabbing group">
                         <div class="flex justify-between items-start mb-sm">
-                            <span class="bg-error-container/20 text-error text-[10px] font-bold px-sm py0.5 rounded uppercase tracking-wider">High</span>
+                            <span class="bg-error-container/20 text-error text-[10px] font-bold px-sm py-0.5 rounded uppercase tracking-wider">High</span>
                             <i class="fa-solid fa-grip-vertical text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity text-[12px]"></i>
                         </div>
                         <h4 class="text-on-surface font-headline font-semibold text-[15px] leading-5 mb-xs">Implement API Authentication</h4>
@@ -41,7 +41,9 @@
                                 <span class="font-medium">Oct 24</span>
                             </div>
                             <div class="flex -space-x-2">
-                                <div class="w-6 h-6 rounded-full border-2 border-surface-container bg-surface-container-highest flex items-center justify-center text-[10px] font-bold text-on-surface-variant">KA</div>
+                                <div
+                                    class="w-6 h-6 rounded-full border-2 border-surface-container bg-surface-container-highest flex items-center justify-center text-[10px] font-bold text-on-surface-variant">
+                                    KA</div>
                             </div>
                         </div>
                     </div>
@@ -60,7 +62,9 @@
                                 <span class="font-medium">Oct 28</span>
                             </div>
                             <div class="flex -space-x-2">
-                                <div class="w-6 h-6 rounded-full border-2 border-surface-container bg-surface-container-highest flex items-center justify-center text-[10px] font-bold text-on-surface-variant">BI</div>
+                                <div
+                                    class="w-6 h-6 rounded-full border-2 border-surface-container bg-surface-container-highest flex items-center justify-center text-[10px] font-bold text-on-surface-variant">
+                                    BI</div>
                                 <div
                                     class="w-6 h-6 rounded-full border-2 border-surface-container bg-surface-container-highest flex items-center justify-center text-[8px] font-bold text-on-surface-variant">
                                     +2</div>
@@ -70,7 +74,7 @@
                 </div>
             </div>
 
-            <div class="kanban-column w-72 md:w-80 shrink-0 flex flex-col max-h-full bg-surface-container-low/50 p-sm rounded-xl border border-outline-variant/50">
+            <div class="kanban-column w-70 sm:w-72 md:w-80 shrink-0 flex flex-col max-h-full bg-surface-container-low/50 p-sm rounded-xl border border-outline-variant/50 snap-contained">
                 <div class="flex items-center justify-between px-xs py-sm shrink-0">
                     <div class="flex items-center gap-sm">
                         <span class="w-2 h-2 rounded-full bg-secondary"></span>
@@ -101,14 +105,16 @@
                                 <span class="font-medium">Oct 21</span>
                             </div>
                             <div class="flex -space-x-2">
-                                <div class="w-6 h-6 rounded-full border-2 border-surface-container bg-surface-container-highest flex items-center justify-center text-[10px] font-bold text-on-surface-variant">HU</div>
+                                <div
+                                    class="w-6 h-6 rounded-full border-2 border-surface-container bg-surface-container-highest flex items-center justify-center text-[10px] font-bold text-on-surface-variant">
+                                    HU</div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="kanban-column w-72 md:w-80 shrink-0 flex flex-col max-h-full bg-surface-container-low/50 p-sm rounded-xl border border-outline-variant/50">
+            <div class="kanban-column w-70 sm:w-72 md:w-80 shrink-0 flex flex-col max-h-full bg-surface-container-low/50 p-sm rounded-xl border border-outline-variant/50 snap-contained">
                 <div class="flex items-center justify-between px-xs py-sm shrink-0">
                     <div class="flex items-center gap-sm">
                         <span class="w-2 h-2 rounded-full bg-outline"></span>
@@ -133,7 +139,9 @@
                                 <span class="font-medium">Oct 18</span>
                             </div>
                             <div class="flex -space-x-2">
-                                <div class="w-6 h-6 rounded-full border-2 border-surface-container bg-surface-container-highest flex items-center justify-center text-[10px] font-bold text-on-surface-variant">MR</div>
+                                <div
+                                    class="w-6 h-6 rounded-full border-2 border-surface-container bg-surface-container-highest flex items-center justify-center text-[10px] font-bold text-on-surface-variant">
+                                    MR</div>
                             </div>
                         </div>
                     </div>
@@ -141,7 +149,7 @@
             </div>
 
             <button
-                class="w-72 md:w-80 shrink-0 flex items-center justify-center gap-sm border-2 border-dashed border-outline-variant rounded-xl group hover:border-primary transition-colors h-24 bg-surface-container-low/20 hover:bg-surface-container-low">
+                class="w-70 sm:w-72 md:w-80 shrink-0 flex items-center justify-center gap-sm border-2 border-dashed border-outline-variant rounded-xl group hover:border-primary transition-colors h-24 bg-surface-container-low/20 hover:bg-surface-container-low snap-contained">
                 <i class="fa-solid fa-circle-plus text-on-surface-variant group-hover:text-primary text-[16px]"></i>
                 <span class="text-[12px] font-semibold tracking-wider text-on-surface-variant group-hover:text-primary">Add Section</span>
             </button>

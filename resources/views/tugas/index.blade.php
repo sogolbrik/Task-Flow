@@ -1,18 +1,21 @@
 <x-main title="Lists Task">
-    <section class="grow p-lg overflow-hidden flex flex-col h-full">
-        <div class="mb-lg flex justify-between items-end">
+    <section class="grow p-md sm:p-lg overflow-hidden flex flex-col h-full w-full">
+
+        <div class="mb-lg flex flex-col md:flex-row justify-between items-start md:items-end gap-md">
             <div>
-                <h2 class="font-headline text-[24px] font-semibold text-on-surface">Task Index</h2>
-                <p class="text-[14px] text-on-surface-variant">All active tasks across your workspaces</p>
+                <h2 class="font-headline text-[22px] sm:text-[24px] font-semibold text-on-surface">Task Index</h2>
+                <p class="text-[13px] sm:text-[14px] text-on-surface-variant">All active tasks across your workspaces</p>
             </div>
-            <div class="flex gap-sm">
-                <div class="relative group">
+
+            <div class="flex flex-wrap items-center gap-sm w-full md:w-auto">
+                <div class="relative group flex-1 sm:flex-initial">
                     <button
-                        class="px-md py-sm border border-outline-variant text-on-surface-variant rounded-lg text-[12px] font-semibold flex items-center gap-xs hover:bg-surface-container-high transition-colors">
+                        class="w-full justify-center px-md py-sm border border-outline-variant text-on-surface-variant rounded-lg text-[12px] font-semibold flex items-center gap-xs hover:bg-surface-container-high transition-colors">
                         <i class="fa-solid fa-filter text-[14px] mr-1"></i>
                         Filter {{ request('status') || request('priority') ? '(Active)' : '' }}
                     </button>
-                    <div class="absolute right-0 mt-1 w-48 bg-surface-container border border-outline-variant rounded-lg shadow-xl hidden group-focus-within:block group-hover:block z-50 text-left">
+                    <div
+                        class="absolute right-0 md:right-auto md:left-0 mt-1 w-48 bg-surface-container border border-outline-variant rounded-lg shadow-xl hidden group-focus-within:block group-hover:block z-50 text-left">
                         <div class="p-2 text-[11px] font-bold uppercase text-on-surface-variant/60 tracking-wider">Status</div>
                         <a href="{{ request()->fullUrlWithQuery(['status' => 'To Do']) }}"
                             class="block px-md py-xs text-[13px] text-on-surface hover:bg-primary/10 {{ request('status') === 'To Do' ? 'font-bold text-primary' : '' }}">To Do</a>
@@ -39,9 +42,9 @@
                     </div>
                 </div>
 
-                <div class="relative group">
+                <div class="relative group flex-1 sm:flex-initial">
                     <button
-                        class="px-md py-sm border border-outline-variant text-on-surface-variant rounded-lg text-[12px] font-semibold flex items-center gap-xs hover:bg-surface-container-high transition-colors">
+                        class="w-full justify-center px-md py-sm border border-outline-variant text-on-surface-variant rounded-lg text-[12px] font-semibold flex items-center gap-xs hover:bg-surface-container-high transition-colors">
                         <i class="fa-solid fa-sort text-[14px] mr-1"></i>
                         Sort By
                     </button>
@@ -61,38 +64,38 @@
                 </div>
 
                 <a href="{{ route('tugas.create') }}"
-                    class="px-md py-sm bg-primary text-on-primary rounded-lg text-[12px] font-semibold flex items-center gap-xs shadow-sm hover:brightness-110 transition-all">
+                    class="w-full sm:w-auto justify-center px-md py-sm bg-primary text-on-primary rounded-lg text-[12px] font-semibold flex items-center gap-xs shadow-sm hover:brightness-110 transition-all">
                     <i class="fa-solid fa-plus text-[14px] mr-1"></i>
                     New Task
                 </a>
             </div>
         </div>
 
-        <div class="grow bg-surface-container rounded-xl border border-outline-variant/30 overflow-hidden flex flex-col shadow-lg">
-            <div class="overflow-x-auto grow">
-                <table class="w-full text-left border-collapse min-w-225">
+        <div class="grow bg-surface-container rounded-xl border border-outline-variant/30 overflow-hidden flex flex-col shadow-lg w-full">
+            <div class="overflow-x-auto grow w-full -mb-px">
+                <table class="w-full text-left border-collapse min-w-160">
                     <thead>
                         <tr class="bg-surface-container-high/50 border-b border-outline-variant/20">
-                            <th class="py-md px-lg text-[12px] font-semibold text-on-surface-variant uppercase tracking-wider">
+                            <th class="py-md px-md sm:px-lg text-[12px] font-semibold text-on-surface-variant uppercase tracking-wider">
                                 <div class="flex items-center gap-xs cursor-pointer">
                                     Task Title
                                 </div>
                             </th>
-                            <th class="py-md px-lg text-[12px] font-semibold text-on-surface-variant uppercase tracking-wider">Status</th>
-                            <th class="py-md px-lg text-[12px] font-semibold text-on-surface-variant uppercase tracking-wider">Priority</th>
-                            <th class="py-md px-lg text-[12px] font-semibold text-on-surface-variant uppercase tracking-wider">Due Date</th>
-                            <th class="py-md px-lg text-[12px] font-semibold text-on-surface-variant uppercase tracking-wider text-right">Actions</th>
+                            <th class="py-md px-md sm:px-lg text-[12px] font-semibold text-on-surface-variant uppercase tracking-wider">Status</th>
+                            <th class="py-md px-md sm:px-lg text-[12px] font-semibold text-on-surface-variant uppercase tracking-wider">Priority</th>
+                            <th class="py-md px-md sm:px-lg text-[12px] font-semibold text-on-surface-variant uppercase tracking-wider">Due Date</th>
+                            <th class="py-md px-md sm:px-lg text-[12px] font-semibold text-on-surface-variant uppercase tracking-wider text-right">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-outline-variant/10">
                         @forelse($tugas as $task)
                             <tr class="high-density-row transition-colors group hover:bg-primary/5">
-                                <td class="py-sm px-lg">
+                                <td class="py-sm px-md sm:px-lg">
                                     <span class="text-[14px] text-on-surface font-semibold {{ $task->status === 'done' ? 'line-through text-on-surface-variant' : '' }}">
                                         {{ $task->task }}
                                     </span>
                                 </td>
-                                <td class="py-sm px-lg">
+                                <td class="py-sm px-md sm:px-lg">
                                     @if ($task->status === 'In Progress')
                                         <span class="inline-flex items-center px-sm py-xs rounded-full bg-secondary-container/10 text-secondary text-[11px] border border-secondary/20 font-medium">
                                             <span class="w-1.5 h-1.5 rounded-full bg-secondary mr-2"></span>
@@ -116,7 +119,7 @@
                                         </span>
                                     @endif
                                 </td>
-                                <td class="py-sm px-lg">
+                                <td class="py-sm px-md sm:px-lg">
                                     @if ($task->priority === 'High')
                                         <span class="inline-flex items-center text-error text-[12px] font-bold">
                                             <i class="fa-solid fa-triangle-exclamation mr-1 text-[12px]"></i>
@@ -134,11 +137,11 @@
                                         </span>
                                     @endif
                                 </td>
-                                <td class="py-sm px-lg text-[14px] text-on-surface-variant">
+                                <td class="py-sm px-md sm:px-lg text-[14px] text-on-surface-variant">
                                     {{ \Carbon\Carbon::parse($task->due_date)->format('M d, Y') }}
                                 </td>
-                                <td class="py-sm px-lg text-right">
-                                    <div class="flex items-center justify-end gap-sm opacity-0 group-hover:opacity-100 transition-opacity">
+                                <td class="py-sm px-md sm:px-lg text-right">
+                                    <div class="flex items-center justify-end gap-sm md:opacity-0 group-hover:opacity-100 transition-opacity">
                                         <a href="{{ route('tugas.edit', $task) }}" class="p-1.5 text-on-surface-variant hover:text-primary transition-colors">
                                             <i class="fa-solid fa-pen text-[14px]"></i>
                                         </a>
@@ -161,7 +164,7 @@
                                                     <div x-show="openDeleteModal" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 scale-95"
                                                         x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 scale-100"
                                                         x-transition:leave-end="opacity-0 scale-95"
-                                                        class="relative w-full max-w-md bg-surface-container border border-outline-variant/20 rounded-2xl p-lg shadow-2xl flex flex-col gap-md text-left">
+                                                        class="relative w-full max-w-md bg-surface-container border border-outline-variant/20 rounded-2xl p-lg shadow-2xl flex flex-col gap-md text-left mx-md">
 
                                                         <div class="flex items-start gap-md">
                                                             <div class="w-10 h-10 rounded-xl bg-error/20 flex items-center justify-center text-error shrink-0 border border-error/30">
@@ -197,7 +200,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="py-lg px-lg text-center text-on-surface-variant text-[14px]">
+                                <td colspan="5" class="py-lg px-md sm:px-lg text-center text-on-surface-variant text-[14px]">
                                     No active tasks found. Create your first task to get started.
                                 </td>
                             </tr>
@@ -207,8 +210,8 @@
             </div>
 
             @if ($tugas->hasPages())
-                <div class="p-md bg-surface-container-highest/30 border-t border-outline-variant/20 flex justify-between items-center">
-                    <div class="text-[12px] text-on-surface-variant font-semibold">
+                <div class="p-md bg-surface-container-highest/30 border-t border-outline-variant/20 flex flex-col sm:flex-row justify-between items-center gap-sm">
+                    <div class="text-[12px] text-on-surface-variant font-semibold text-center sm:text-left">
                         Showing <span class="text-on-surface font-bold">{{ $tugas->firstItem() }}</span> to <span class="text-on-surface font-bold">{{ $tugas->lastItem() }}</span> of <span
                             class="text-on-surface font-bold">{{ $tugas->total() }}</span> tasks
                     </div>
@@ -236,7 +239,7 @@
                                 @endif
                             @endforeach
 
-                            {{-- Ellipsis if there are more pages --}}
+                            {{-- Ellipsis --}}
                             @if ($tugas->hasMorePages() && $tugas->lastPage() > $tugas->currentPage() + 3)
                                 <span class="px-1 text-on-surface-variant self-center">...</span>
                                 <a href="{{ $tugas->url($tugas->lastPage()) }}"
@@ -265,7 +268,7 @@
             // Animasi Row Klik
             document.querySelectorAll('.high-density-row').forEach(row => {
                 row.addEventListener('click', (e) => {
-                    if (e.target.closest('button') || e.target.closest('.task-checkbox')) return;
+                    if (e.target.closest('button') || e.target.closest('.task-checkbox') || e.target.closest('a') || e.target.closest('form')) return;
                     row.classList.add('bg-primary-container/10');
                     setTimeout(() => row.classList.remove('bg-primary-container/10'), 300);
                 });

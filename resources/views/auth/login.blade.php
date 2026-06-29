@@ -63,17 +63,17 @@
         }
     }">
 
-        <section class="w-full md:w-[45%] xl:w-[40%] bg-[#051424] flex flex-col justify-center p-6 lg:p-10 z-10 border-r border-slate-800">
-            <div class="max-w-md w-full mx-auto space-y-8">
+        <section class="w-full md:w-[45%] xl:w-[40%] bg-[#051424] flex flex-col justify-center p-6 sm:p-10 lg:p-12 z-10 border-b md:border-b-0 md:border-r border-slate-800">
+            <div class="max-w-md w-full mx-auto space-y-6 sm:space-y-8">
 
-                <div class="md:hidden flex items-center gap-2 mb-8">
-                    <i class="fa-solid fa-circle-check text-[#c0c1ff] text-3xl"></i>
-                    <span class="font-heading font-extrabold text-2xl text-[#c0c1ff] tracking-tight">TaskFlow</span>
+                <div class="md:hidden flex items-center gap-2 mb-6">
+                    <i class="fa-solid fa-circle-check text-[#c0c1ff] text-2xl sm:text-3xl"></i>
+                    <span class="font-heading font-extrabold text-xl sm:text-2xl text-[#c0c1ff] tracking-tight">TaskFlow</span>
                 </div>
 
                 <header class="space-y-2">
-                    <h1 class="font-heading font-bold text-4xl text-[#d4e4fa] tracking-tight">Welcome back</h1>
-                    <p class="text-base text-[#c7c4d7]">Enter your credentials to access your workspace.</p>
+                    <h1 class="font-heading font-bold text-3xl sm:text-4xl text-[#d4e4fa] tracking-tight">Welcome back</h1>
+                    <p class="text-sm sm:text-base text-[#c7c4d7]">Enter your credentials to access your workspace.</p>
                 </header>
 
                 @if (session('status'))
@@ -90,7 +90,7 @@
                     </div>
                 @endif
 
-                <form method="POST" action="{{ route('auth') }}" class="space-y-6">
+                <form method="POST" action="{{ route('auth') }}" class="space-y-4 sm:space-y-6">
                     @csrf
 
                     <div class="space-y-2" x-data="{ focused: false }">
@@ -126,7 +126,7 @@
                         </div>
                     </div>
 
-                    <div class="flex items-center gap-3">
+                    <div class="flex items-center gap-3 py-1">
                         <input class="w-4 h-4 rounded border-slate-700 bg-[#010f1f] text-[#8083ff] focus:ring-[#8083ff] focus:ring-offset-0" id="remember" name="remember" type="checkbox"
                             x-model="remember" />
                         <label class="text-sm text-[#c7c4d7] select-none cursor-pointer" for="remember">Keep me signed in</label>
@@ -137,7 +137,7 @@
                     </button>
                 </form>
 
-                <p class="text-center text-sm text-[#c7c4d7]">
+                <p class="text-center text-sm text-[#c7c4d7] pt-2">
                     Don't have an account?
                     <a class="text-[#c0c1ff] font-semibold hover:underline" href="{{ route('register') }}">Create an account</a>
                 </p>

@@ -1,25 +1,23 @@
 <x-main title="Update Task">
-    <!-- Ambient Atmospheric Glow -->
     <div class="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-primary/10 blur-[120px] rounded-full pointer-events-none"></div>
     <div class="absolute bottom-[-5%] left-[-5%] w-[30%] h-[30%] bg-secondary/10 blur-[100px] rounded-full pointer-events-none"></div>
 
-    <div class="w-full mt-md relative z-10 p-lg overflow-y-auto h-[calc(100vh-4rem)]">
-        <!-- Header Section -->
+    <div class="w-full relative z-10 p-md sm:p-lg overflow-y-auto h-[calc(100vh-4rem)]">
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-md mb-xl">
             <div>
                 <div class="flex items-center gap-sm text-primary mb-sm">
                     <i class="fa-solid fa-arrow-left text-[14px]"></i>
                     <a class="text-[12px] font-semibold tracking-wider hover:underline" href="{{ route('tugas.index') }}">Back to Task Board</a>
                 </div>
-                <h2 class="font-headline font-bold text-headline-xl text-on-surface">Edit Task</h2>
-                <p class="text-on-surface-variant text-body-lg mt-sm">Modify details for the current development sprint.</p>
+                <h2 class="font-headline font-bold text-[24px] sm:text-headline-xl text-on-surface">Edit Task</h2>
+                <p class="text-on-surface-variant text-[14px] sm:text-body-lg mt-xs sm:mt-sm">Modify details for the current development sprint.</p>
             </div>
-            <div class="flex gap-sm">
-                <form action="{{ route('tugas.destroy', $tugas->id) }}" method="POST">
+            <div class="flex gap-sm w-full md:w-auto">
+                <form action="{{ route('tugas.destroy', $tugas->id) }}" method="POST" class="w-full md:w-auto">
                     @csrf
                     @method('DELETE')
-                    <button
-                        class="px-md py-sm rounded-lg border border-error/50 text-error text-[12px] font-semibold tracking-wider flex items-center gap-xs hover:bg-error/10 transition-colors active:scale-95">
+                    <button type="submit"
+                        class="w-full md:w-auto justify-center px-md py-sm rounded-lg border border-error/50 text-error text-[12px] font-semibold tracking-wider flex items-center gap-xs hover:bg-error/10 transition-colors active:scale-95">
                         <i class="fa-solid fa-trash-can text-[14px]"></i>
                         Delete Task
                     </button>
@@ -27,20 +25,17 @@
             </div>
         </div>
 
-        <!-- Form Bento Layout -->
-        <form action="{{ route('tugas.update', $tugas->id) }}" method="POST" class="grid grid-cols-1 md:grid-cols-12 gap-lg">
+        <form action="{{ route('tugas.update', $tugas->id) }}" method="POST" class="grid grid-cols-1 md:grid-cols-12 gap-md sm:gap-lg">
             @csrf
             @method('PUT')
 
-            <!-- Main Form Column -->
-            <div class="md:col-span-8 space-y-lg">
-                <!-- Task Title & Description Card -->
-                <div class="glass-effect p-lg rounded-xl border border-outline-variant/50">
-                    <div class="space-y-lg">
+            <div class="col-span-1 md:col-span-8 space-y-md sm:space-y-lg">
+                <div class="glass-effect p-md sm:p-lg rounded-xl border border-outline-variant/50">
+                    <div class="space-y-md sm:space-y-lg">
                         <div class="space-y-sm">
                             <label class="text-[12px] font-semibold tracking-wider text-on-surface-variant uppercase block">Task Name</label>
                             <input
-                                class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-md text-headline-md font-headline focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-on-surface"
+                                class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-md text-base sm:text-headline-md font-headline focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-on-surface"
                                 type="text" name="task" value="{{ $tugas->task }}" />
                         </div>
                         <div class="space-y-sm">
@@ -53,10 +48,8 @@
                 </div>
             </div>
 
-            <!-- Sidebar Metadata Column -->
-            <div class="md:col-span-4 space-y-lg">
-                <!-- Status & Priority -->
-                <div class="glass-effect p-lg rounded-xl space-y-lg border border-outline-variant/50">
+            <div class="col-span-1 md:col-span-4 space-y-md sm:space-y-lg">
+                <div class="glass-effect p-md sm:p-lg rounded-xl space-y-md sm:space-y-lg border border-outline-variant/50">
                     <div class="space-y-sm">
                         <label class="text-[12px] font-semibold tracking-wider text-on-surface-variant uppercase block">Status</label>
                         <div class="relative">
@@ -94,8 +87,7 @@
                     </div>
                 </div>
 
-                <!-- Activity Log -->
-                {{-- <div class="glass-effect p-lg rounded-xl border border-outline-variant/50">
+                {{-- <div class="glass-effect p-md sm:p-lg rounded-xl border border-outline-variant/50">
                     <h4 class="text-[11px] font-semibold tracking-wider text-on-surface-variant uppercase mb-sm">Task History</h4>
                     <ul class="text-[11px] space-y-sm text-on-surface-variant">
                         @foreach ($tugas->activityLogs as $log)
@@ -108,15 +100,14 @@
                 </div> --}}
             </div>
 
-            <!-- Sticky Action Footer -->
-            <div class="md:col-span-12 mt-xl flex items-center justify-between pt-lg border-t border-outline-variant/50">
+            <div class="col-span-1 md:col-span-12 mt-xl flex flex-col sm:flex-row items-center justify-between pt-lg border-t border-outline-variant/50 gap-md sm:gap-0">
                 <a href="{{ route('tugas.index') }}"
-                    class="px-lg py-md rounded-xl text-on-surface-variant text-[12px] font-semibold tracking-wider hover:text-on-surface hover:bg-surface-container transition-all">
+                    class="w-full sm:w-auto text-center px-lg py-md rounded-xl text-on-surface-variant text-[12px] font-semibold tracking-wider hover:text-on-surface hover:bg-surface-container transition-all">
                     Cancel Changes
                 </a>
-                <div class="flex gap-md">
+                <div class="flex gap-md w-full sm:w-auto">
                     <button type="submit"
-                        class="px-xl py-md bg-primary text-on-primary font-bold text-[12px] tracking-wider rounded-xl shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center gap-sm">
+                        class="w-full sm:w-auto justify-center px-xl py-md bg-primary text-on-primary font-bold text-[12px] tracking-wider rounded-xl shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center gap-sm">
                         <i class="fa-solid fa-floppy-disk text-[14px]"></i>
                         Update Task
                     </button>
