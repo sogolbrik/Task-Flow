@@ -26,6 +26,11 @@ RUN npm run build
 
 # Nginx & PHP Configuration
 COPY ./nginx.conf /etc/nginx/sites-available/default
+
+# Hapus config bawaan nginx dan buat symlink baru agar terbaca oleh Nginx
+RUN rm -f /etc/nginx/sites-enabled/default && \
+    ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+
 RUN chmod -R 775 storage bootstrap/cache
 
 EXPOSE 8080
