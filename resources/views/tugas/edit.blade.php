@@ -13,15 +13,59 @@
                 <p class="text-on-surface-variant text-[14px] sm:text-body-lg mt-xs sm:mt-sm">Modify details for the current development sprint.</p>
             </div>
             <div class="flex gap-sm w-full md:w-auto">
-                <form action="{{ route('tugas.destroy', $tugas->id) }}" method="POST" class="w-full md:w-auto">
+
+                <form id="delete-form-{{ $tugas->id }}" action="{{ route('tugas.destroy', $tugas->id) }}" method="POST" class="inline" x-data="{ openDeleteModal: false }"
+                    @submit.prevent="openDeleteModal = true">
                     @csrf
                     @method('DELETE')
+
                     <button type="submit"
                         class="w-full md:w-auto justify-center px-md py-sm rounded-lg border border-error/50 text-error text-[12px] font-semibold tracking-wider flex items-center gap-xs hover:bg-error/10 transition-colors active:scale-95">
                         <i class="fa-solid fa-trash-can text-[14px]"></i>
                         Delete Task
                     </button>
+
+                    <template x-teleport="body">
+                        <div x-show="openDeleteModal" class="fixed inset-0 z-100 flex items-center justify-center p-md overflow-x-hidden overflow-y-auto" x-cloak>
+
+                            <div x-show="openDeleteModal" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                                x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" @click="openDeleteModal = false"
+                                class="fixed inset-0 bg-black/60 backdrop-blur-sm"></div>
+
+                            <div x-show="openDeleteModal" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+                                x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+                                class="relative w-full max-w-md bg-surface-container border border-outline-variant/20 rounded-2xl p-lg shadow-2xl flex flex-col gap-md text-left mx-md">
+
+                                <div class="flex items-start gap-md">
+                                    <div class="w-10 h-10 rounded-xl bg-error/20 flex items-center justify-center text-error shrink-0 border border-error/30">
+                                        <i class="fa-solid fa-triangle-exclamation text-[18px]"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-[16px] font-bold text-on-surface">Delete Task?</h3>
+                                        <p class="text-[13px] text-on-surface-variant mt-xs leading-relaxed">
+                                            Are you sure you want to delete <span class="font-semibold text-primary">"{{ $tugas->task }}"</span>? This action cannot be
+                                            undone.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center justify-end gap-sm mt-sm">
+                                    <button type="button" @click="openDeleteModal = false"
+                                        class="px-md py-sm border border-outline-variant text-on-surface-variant rounded-lg text-[12px] font-semibold hover:bg-surface-container-high hover:text-on-surface transition-colors">
+                                        Cancel
+                                    </button>
+
+                                    <button type="button" @click="document.getElementById('delete-form-{{ $tugas->id }}').submit()"
+                                        class="px-md py-sm bg-red-600 text-white font-semibold text-[12px] rounded-lg shadow-md shadow-error/10 hover:brightness-110 transition-all flex items-center gap-xs">
+                                        <i class="fa-solid fa-trash text-[12px]"></i>
+                                        Delete Task
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
                 </form>
+
             </div>
         </div>
 

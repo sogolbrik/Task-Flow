@@ -1,7 +1,7 @@
 <?php
-
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\TugasController;
+use App\Http\Controllers\Admin\WorkflowController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,4 +14,5 @@ Route::post('auth-logout', [AuthController::class, 'logout'])->name('auth.logout
 Route::middleware('auth')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('tugas', TugasController::class);
+    Route::resource('workflows', WorkflowController::class);
 });

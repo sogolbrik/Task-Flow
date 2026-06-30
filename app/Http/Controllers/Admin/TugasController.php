@@ -68,10 +68,16 @@ class TugasController extends Controller
             'due_date' => 'required|date',
         ]);
 
-        $validate['user_id'] = Auth::id();
-
-        Task::create($validate);
-        return redirect()->route('tugas.index');
+        try {
+            $validate['user_id'] = Auth::id();
+    
+            Task::create($validate);
+            return redirect()->route('tugas.index')->with('success', 'Task created successfully!');
+        } catch (\Throwable $th) {
+            return redirect()->back()
+            ->withInput()
+            ->with('error', 'Failed to create task. Please try again.');
+        }
     }
 
     /**
@@ -105,8 +111,15 @@ class TugasController extends Controller
             'due_date' => 'required|date',
         ]);
 
-        Task::findOrFail($id)->update($validate);
-        return redirect()->route('tugas.index');
+        try {
+            Task::findOrFail($id)->update($validate);
+            return redirect()->route('tugas.index')->with('success', 'Task updated successfully!');
+        } catch (\Throwable $th) {
+            return redirect()->back()
+            ->withInput()
+            ->with('error', 'Failed to update this task. Please try again.');
+        }
+
     }
 
     /**
@@ -114,10 +127,14 @@ class TugasController extends Controller
      */
     public function destroy(string $id)
     {
-        // Fetch the task that belongs to the authenticated user
         $tugas = Task::where('user_id', Auth::id())->findOrFail($id);
-        $tugas->delete();
-
-        return redirect()->route('tugas.index');
+        try {
+            $tugas->delete();
+    
+            return redirect()->route('tugas.index')->with('success', 'Task deleted successfully!');
+        } catch (\Throwable $th) {
+            return redirect()->back()
+            ->with('error', 'Failed to delete task. Please try again.');
+        }
     }
 }

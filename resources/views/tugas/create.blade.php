@@ -29,7 +29,7 @@
                         <div class="space-y-sm">
                             <label for="description" class="text-[12px] font-semibold tracking-wider text-on-surface-variant uppercase block">Description <small
                                     class="text-on-surface-variant/60">(optional)</small></label>
-                            <textarea id="description" name="description" rows="6" required
+                            <textarea id="description" name="description" rows="6"
                                 class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-md text-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-on-surface-variant leading-relaxed"
                                 placeholder="Provide a detailed description of the task requirements, target environment, and expected outcomes..."></textarea>
                         </div>

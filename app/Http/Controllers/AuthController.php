@@ -27,10 +27,11 @@ class AuthController extends Controller
 
         if (Auth::attempt($validate, $remember)) {
             $request->session()->regenerate();
-            return redirect()->intended('dashboard');
+            return redirect()->intended('dashboard')->with('success', 'Login successful! Welcome back!');
         }
-        return redirect()->back();
+        return redirect()->back()->withInput()->with('error', 'Invalid email or password. Please check your credentials and try again.');
     }
+
     public function store(Request $request)
     {
         $validate = $request->validate([
@@ -39,10 +40,17 @@ class AuthController extends Controller
             'password' => 'required|string|min:8|confirmed',
         ]);
 
-        $user = User::create($validate);
+        try {
+            $user = User::create($validate);
+    
+            Auth::login($user);
+            return redirect()->intended('dashboard')->with('success', 'Account created successfully! Welcome aboard!');
+        } catch (\Throwable $th) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Failed to create account. Please try again.');
+        }
 
-        Auth::login($user);
-        return redirect()->intended('dashboard');
     }
 
     public function logout(Request $request)

@@ -9,8 +9,7 @@
     <link rel="stylesheet" href="{{ asset('assets/vendor/fontawesome/all.min.css') }}">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script>
         tailwind.config = {
             darkMode: "class",
@@ -150,19 +149,26 @@
             @php
                 $dashboardActive = request()->routeIs('dashboard');
                 $tugasActive = request()->routeIs('tugas.*');
+                $workflowsActive = request()->routeIs('workflows.*');
             @endphp
 
             <a class="flex items-center gap-md px-md py-sm rounded-lg transition-transform text-[12px] font-semibold tracking-wider 
                 {{ $dashboardActive ? 'text-secondary-fixed bg-secondary-container active:translate-x-1' : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high active:translate-x-1' }}"
-                href="{{ route('dashboard') }}">
+               href="{{ route('dashboard') }}">
                 <i class="fa-solid fa-table-columns text-[16px] w-5 text-center"></i>
                 <span>Dashboard</span>
             </a>
             <a class="flex items-center gap-md px-md py-sm rounded-lg transition-transform text-[12px] font-semibold tracking-wider 
                 {{ $tugasActive ? 'text-secondary-fixed bg-secondary-container active:translate-x-1' : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high active:translate-x-1' }}"
-                href="{{ route('tugas.index') }}">
+               href="{{ route('tugas.index') }}">
                 <i class="fa-solid fa-list-check text-[16px] w-5 text-center"></i>
                 <span>Task</span>
+            </a>
+            <a class="flex items-center gap-md px-md py-sm rounded-lg transition-transform text-[12px] font-semibold tracking-wider 
+                {{ $workflowsActive ? 'text-secondary-fixed bg-secondary-container active:translate-x-1' : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high active:translate-x-1' }}"
+               href="{{ route('workflows.index') }}">
+                <i class="fa-solid fa-project-diagram text-[16px] w-5 text-center"></i>
+                <span>Workflows</span>
             </a>
         </nav>
 
@@ -221,6 +227,8 @@
             {{ $slot }}
         </main>
     </div>
+
+    <x-toast></x-toast>
 
     <script src="{{ asset('assets/vendor/fontawesome/all.min.js') }}"></script>
     <script>
