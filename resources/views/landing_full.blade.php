@@ -787,8 +787,8 @@
 
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
                     @php
-                        $roles = ['Core Engineering', 'UI/UX Design Architect', 'Product Operations', 'Growth Infrastructure'];
-                        $teamNames = ['Alexei Rivera', 'Sophia Thorne', 'Hanafi Setiawan', 'David Kross'];
+                        $roles = ['Fullstack', 'UI/UX Design Architect', 'Product Operations', 'Growth Infrastructure'];
+                        $teamNames = ['Gilang Sampurno', 'Sophia Thorne', 'Hanafi Setiawan', 'Alexei Rivera'];
                     @endphp
                     @for ($i = 0; $i < 4; $i++)
                         <div class="p-5 bg-surface border border-outline rounded-2xl text-center hover:border-primary/40 transition-colors group shadow-sm">
