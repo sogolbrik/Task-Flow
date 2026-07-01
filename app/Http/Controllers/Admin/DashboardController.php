@@ -3,28 +3,31 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Task;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $user = Auth::user();
+        // Filter tugas milik user yang jatuh tempo HANYA MINGGU INI
         $startOfWeek = Carbon::now()->startOfWeek();
         $endOfWeek = Carbon::now()->endOfWeek();
 
-        $allTasks = $user->tasks()
+        $allTasks = Task::where('user_id', Auth::id())
             ->whereBetween('due_date', [$startOfWeek, $endOfWeek])
-            ->select('id', 'user_id', 'task', 'description', 'status', 'priority', 'due_date', 'created_at', 'updated_at')
-            ->get()
-            ->groupBy('status');
+            ->get();
+
+        // Kelompokkan berdasarkan status untuk pemicu awal kolom bawaan
+        $tugasByStatus = $allTasks->groupBy('status');
 
         return view('dashboard', [
-            'todoTasks' => $allTasks->get('To Do', collect()),
-            'inProgressTasks' => $allTasks->get('In Progress', collect()),
-            'reviewTasks' => $allTasks->get('Review', collect()),
-            'completedTasks' => $allTasks->get('Completed', collect()),
+            'todoTasks' => $tugasByStatus->get('To Do', collect()),
+            'inProgressTasks' => $tugasByStatus->get('In Progress', collect()),
+            'reviewTasks' => $tugasByStatus->get('Review', collect()),
+            'completedTasks' => $tugasByStatus->get('Completed', collect()),
         ]);
     }
 }

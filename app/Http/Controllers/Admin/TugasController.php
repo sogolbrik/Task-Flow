@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreTaskRequest;
-use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Task;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class TugasController extends Controller
@@ -13,30 +12,36 @@ class TugasController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $query = Auth::user()->tasks();
+        // Only fetch tasks belonging to the currently authenticated user
+        $query = Task::where('user_id', Auth::id());
 
+        // --- 1. FITUR FILTER ---
         // Filter berdasarkan Status
-        if (request()->filled('status')) {
-            $query->where('status', request()->status);
-        }
+        $query->when($request->filled('status'), function ($q) use ($request) {
+            return $q->where('status', $request->status);
+        });
 
         // Filter berdasarkan Priority
-        if (request()->filled('priority')) {
-            $query->where('priority', request()->priority);
-        }
+        $query->when($request->filled('priority'), function ($q) use ($request) {
+            return $q->where('priority', $request->priority);
+        });
 
-        // Sorting
-        $sortBy = request()->input('sort_by', 'created_at');
-        $sortOrder = request()->input('sort_order', 'desc');
 
+        // --- 2. FITUR SORT (PENGURUTAN) ---
+        $sortBy = $request->input('sort_by', 'created_at'); // Default urut berdasarkan tgl dibuat
+        $sortOrder = $request->input('sort_order', 'desc'); // Default descending (terbaru)
+
+        // Validasi kolom agar aman dari SQL Injection
         if (in_array($sortBy, ['task', 'status', 'priority', 'due_date', 'created_at'])) {
             $query->orderBy($sortBy, $sortOrder);
         } else {
             $query->latest();
         }
 
+        // --- 3. PAGINASI DENGAN QUERY STRING ---
+        // Menggunakan appends() agar filter tidak hilang saat pindah halaman paginasi
         $tugas = $query->paginate(10)->withQueryString();
 
         return view('tugas.index', compact('tugas'));
@@ -53,67 +58,83 @@ class TugasController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreTaskRequest $request)
+    public function store(Request $request)
     {
-        try {
-            Auth::user()->tasks()->create($request->validated());
+        $validate = $request->validate([
+            'task' => 'required|string',
+            'description' => 'nullable|string',
+            'status' => 'required|in:To Do,In Progress,Review,Completed',
+            'priority' => 'required|in:Low,Medium,High',
+            'due_date' => 'required|date',
+        ]);
 
+        try {
+            $validate['user_id'] = Auth::id();
+    
+            Task::create($validate);
             return redirect()->route('tugas.index')->with('success', 'Task created successfully!');
         } catch (\Throwable $th) {
             return redirect()->back()
-                ->withInput()
-                ->with('error', 'Failed to create task. Please try again.');
+            ->withInput()
+            ->with('error', 'Failed to create task. Please try again.');
         }
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Task $tugas)
+    public function edit(string $id)
     {
-        if ($tugas->user_id !== Auth::id()) {
-            abort(403);
-        }
-
-        return view('tugas.edit', ['tugas' => $tugas]);
+        return view('tugas.edit', [
+            'tugas' => Task::where('user_id', Auth::id())->findOrFail($id)
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateTaskRequest $request, Task $tugas)
+    public function update(Request $request, string $id)
     {
-        if ($tugas->user_id !== Auth::id()) {
-            abort(403);
-        }
+        $validate = $request->validate([
+            'task' => 'required|string',
+            'description' => 'nullable|string',
+            'status' => 'required|in:To Do,In Progress,Review,Completed',
+            'priority' => 'required|in:Low,Medium,High',
+            'due_date' => 'required|date',
+        ]);
 
         try {
-            $tugas->update($request->validated());
-
+            Task::findOrFail($id)->update($validate);
             return redirect()->route('tugas.index')->with('success', 'Task updated successfully!');
         } catch (\Throwable $th) {
             return redirect()->back()
-                ->withInput()
-                ->with('error', 'Failed to update this task. Please try again.');
+            ->withInput()
+            ->with('error', 'Failed to update this task. Please try again.');
         }
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Task $tugas)
+    public function destroy(string $id)
     {
-        if ($tugas->user_id !== Auth::id()) {
-            abort(403);
-        }
-
+        $tugas = Task::where('user_id', Auth::id())->findOrFail($id);
         try {
             $tugas->delete();
-
+    
             return redirect()->route('tugas.index')->with('success', 'Task deleted successfully!');
         } catch (\Throwable $th) {
             return redirect()->back()
-                ->with('error', 'Failed to delete task. Please try again.');
+            ->with('error', 'Failed to delete task. Please try again.');
         }
     }
 }
